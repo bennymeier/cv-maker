@@ -1,0 +1,19 @@
+.tiptap {
+  margin-top: 0.2em;
+  min-height: 200px;
+  padding: 0.5em 1em;
+  user-select: text;
+}
+
+.tiptap:focus {
+  outline: none !important;
+}
+
+.tiptap ul,
+.tiptap ol {
+  padding: 0 1rem;
+}
+
+.tiptap a {
+  color: blue;
+}
