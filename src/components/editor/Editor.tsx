@@ -3,7 +3,11 @@ import { Divider, Flex } from '@chakra-ui/react';
 import './style.css';
 import UnderlineExtension from '@tiptap/extension-underline';
 import LinkExtension from '@tiptap/extension-link';
-import { useEditor, EditorContent } from '@tiptap/react';
+import {
+  useEditor,
+  EditorContent,
+  type Editor as EditorType,
+} from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import MenuBar from './MenuBar';
 
@@ -26,7 +30,7 @@ export default function Editor() {
       flexDirection="column"
       borderRadius="lg"
     >
-      <MenuBar editor={editor} />
+      <MenuBar editor={editor as EditorType} />
       <Divider />
       <EditorContent editor={editor} />
     </Flex>
