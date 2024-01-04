@@ -6,8 +6,8 @@ import { Box } from '@chakra-ui/react';
 export default function Home() {
   return (
     <Box as="main" p="6">
-      <ProfileForm />
       <PersonalForm />
+      <ProfileForm />
     </Box>
   );
 }

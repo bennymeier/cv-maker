@@ -8,6 +8,8 @@ import {
   Stack,
   Select,
 } from '@chakra-ui/react';
+import { IconDeviceFloppy } from '@tabler/icons-react';
+import PhotoUpload from './PhotoUpload';
 
 export default function PersonalForm() {
   return (
@@ -22,6 +24,9 @@ export default function PersonalForm() {
             <FormLabel htmlFor="lastname">Lastname</FormLabel>
             <Input id="lastname" name="lastname" />
           </Box>
+        </Stack>
+        <Stack>
+          <PhotoUpload />
         </Stack>
         <Stack>
           <Box width="100%">
@@ -110,7 +115,9 @@ export default function PersonalForm() {
       </Stack>
       <Divider />
       <Flex flexDirection="row-reverse" paddingX="6" paddingY="4">
-        <Button colorScheme="green">Save</Button>
+        <Button colorScheme="green" leftIcon={<IconDeviceFloppy />}>
+          Save
+        </Button>
       </Flex>
     </Box>
   );
