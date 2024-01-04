@@ -1,14 +1,4 @@
-import {
-  Box,
-  Button,
-  Divider,
-  Flex,
-  FormLabel,
-  Text,
-  Stack,
-  Select,
-  Heading,
-} from '@chakra-ui/react';
+import { Box, Text, Heading } from '@chakra-ui/react';
 import Editor from './editor/Editor';
 
 export default function ProfileForm() {

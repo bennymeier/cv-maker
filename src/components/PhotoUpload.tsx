@@ -1,15 +1,21 @@
-import debounce from '@/utils/debounce';
 import {
   Box,
   Input,
   Icon,
   Text,
-  InputGroup,
   Image,
+  Heading,
   IconButton,
   FormLabel,
+  Button,
+  Divider,
+  Flex,
 } from '@chakra-ui/react';
-import { IconTrash, IconFileUpload } from '@tabler/icons-react';
+import {
+  IconTrash,
+  IconFileUpload,
+  IconDeviceFloppy,
+} from '@tabler/icons-react';
 import React, { useRef, useState } from 'react';
 
 export default function PhotoUpload() {
@@ -67,7 +73,8 @@ export default function PhotoUpload() {
 
   return (
     <Box>
-      <Box>
+      <Heading>Photo Upload</Heading>
+      <Box as="form" boxShadow="xl" borderRadius="4">
         <FormLabel htmlFor="profilephoto">Profile Photo</FormLabel>
         {currentImage && (
           <Box position="relative">
@@ -78,6 +85,7 @@ export default function PhotoUpload() {
               height="150"
             />
             <IconButton
+              aria-label="Delete image"
               icon={<IconTrash aria-label="Delete image" />}
               size="xs"
               position="absolute"
@@ -116,6 +124,12 @@ export default function PhotoUpload() {
             Click or drag file to this area to upload
           </Text>
         </Box>
+        <Divider />
+        <Flex flexDirection="row-reverse" paddingX="6" paddingY="4">
+          <Button colorScheme="green" leftIcon={<IconDeviceFloppy />}>
+            Save
+          </Button>
+        </Flex>
       </Box>
     </Box>
   );

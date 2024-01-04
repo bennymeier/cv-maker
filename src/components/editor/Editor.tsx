@@ -1,5 +1,5 @@
 'use client';
-import { Divider, Flex } from '@chakra-ui/react';
+import { Button, Box, Flex } from '@chakra-ui/react';
 import './style.css';
 import UnderlineExtension from '@tiptap/extension-underline';
 import LinkExtension from '@tiptap/extension-link';
@@ -10,6 +10,7 @@ import {
 } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import MenuBar from './MenuBar';
+import { IconDeviceFloppy } from '@tabler/icons-react';
 
 export default function Editor() {
   const extensions = [
@@ -24,15 +25,21 @@ export default function Editor() {
   const editor = useEditor({ extensions });
 
   return (
-    <Flex
-      background="white"
-      border="3px solid black"
-      flexDirection="column"
-      borderRadius="lg"
-    >
-      <MenuBar editor={editor as EditorType} />
-      <Divider />
-      <EditorContent editor={editor} />
-    </Flex>
+    <Box as="form" boxShadow="xl" borderRadius="4">
+      <Flex
+        background="white"
+        border="3px solid black"
+        flexDirection="column"
+        borderRadius="lg"
+      >
+        <MenuBar editor={editor as EditorType} />
+        <EditorContent editor={editor} />
+      </Flex>
+      <Flex flexDirection="row-reverse" paddingX="6" paddingY="4">
+        <Button colorScheme="green" leftIcon={<IconDeviceFloppy />}>
+          Save
+        </Button>
+      </Flex>
+    </Box>
   );
 }
