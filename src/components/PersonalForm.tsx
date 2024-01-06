@@ -1,3 +1,5 @@
+'use client';
+import { UserDocument } from '@/models/User';
 import {
   Box,
   Button,
@@ -11,40 +13,58 @@ import {
   useToast,
 } from '@chakra-ui/react';
 import { IconDeviceFloppy } from '@tabler/icons-react';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
-export default function PersonalForm() {
+type Props = {
+  initialData?: Partial<UserDocument>;
+  method?: 'PUT' | 'POST';
+};
+export default function PersonalForm({ initialData, method = 'POST' }: Props) {
   const toast = useToast();
-  const [formData, setFormData] = useState({
-    firstname: '',
-    lastname: '',
+  const [formData, setFormData] = useState<Partial<UserDocument>>({
+    firstName: '',
+    lastName: '',
     email: '',
-    position: '',
-    phone: '',
-    street: '',
-    zip: '',
+    currentPosition: '',
+    postalCode: '',
+    streetName: '',
     city: '',
-    driverlicense: '',
+    drivingLicenses: '',
     gender: '',
-    dateofbirth: '',
-    placeofbirth: '',
+    dateOfBirth: '',
+    placeOfBirth: '',
     nationality: '',
-    maritalstatus: '',
+    maritalStatus: '',
     linkedin: '',
-    personalwebsite: '',
+    website: '',
   });
   const [isLoading, setLoading] = useState(false);
-  const handleSubmit = (event: React.SyntheticEvent) => {
+
+  useEffect(() => {
+    if (initialData) {
+      setFormData(initialData);
+    }
+  }, [initialData]);
+
+  const handleSubmit = async (event: React.SyntheticEvent) => {
     event.preventDefault();
     setLoading(true);
     const form = event.target as HTMLFormElement;
     const formData = new FormData(form);
     const formJson = Object.fromEntries(formData.entries());
     try {
-      fetch('http://localhost:3000/api/users', {
-        method: 'POST',
-        body: JSON.stringify(formJson),
-      });
+      const userId = initialData?._id;
+      if (userId && method === 'PUT') {
+        await fetch(`http://localhost:3000/api/users/${userId}`, {
+          method: 'PUT',
+          body: JSON.stringify(formJson),
+        });
+      } else {
+        await fetch(`http://localhost:3000/api/users`, {
+          method: 'POST',
+          body: JSON.stringify(formJson),
+        });
+      }
     } catch (err: any) {
       setLoading(true);
       toast({
@@ -56,12 +76,11 @@ export default function PersonalForm() {
     } finally {
       setLoading(false);
       toast({
-        title: 'User created',
+        title: `User ${method === 'POST' ? 'created' : 'updated'}`,
         status: 'success',
         isClosable: true,
       });
     }
-    console.log(formJson);
   };
 
   const handleChange = (
@@ -82,17 +101,32 @@ export default function PersonalForm() {
           <Stack flexDirection="row">
             <Box width="100%">
               <FormLabel htmlFor="firstName">Firstname</FormLabel>
-              <Input id="firstName" name="firstName" onChange={handleChange} />
+              <Input
+                id="firstName"
+                name="firstName"
+                onChange={handleChange}
+                defaultValue={formData.firstName}
+              />
             </Box>
             <Box width="100%">
               <FormLabel htmlFor="lastName">Lastname</FormLabel>
-              <Input id="lastName" name="lastName" onChange={handleChange} />
+              <Input
+                id="lastName"
+                name="lastName"
+                onChange={handleChange}
+                defaultValue={formData.lastName}
+              />
             </Box>
           </Stack>
           <Stack>
             <Box width="100%">
               <FormLabel htmlFor="email">E-Mail</FormLabel>
-              <Input id="email" name="email" onChange={handleChange} />
+              <Input
+                id="email"
+                name="email"
+                onChange={handleChange}
+                defaultValue={formData.email}
+              />
             </Box>
           </Stack>
           <Stack>
@@ -102,6 +136,7 @@ export default function PersonalForm() {
                 id="currentPosition"
                 name="currentPosition"
                 onChange={handleChange}
+                defaultValue={formData.currentPosition}
               />
             </Box>
           </Stack>
@@ -112,11 +147,17 @@ export default function PersonalForm() {
                 id="phoneNumber"
                 name="phoneNumber"
                 onChange={handleChange}
+                defaultValue={formData.phoneNumber}
               />
             </Box>
             <Box width="100%">
-              <FormLabel htmlFor="street">Street</FormLabel>
-              <Input id="street" name="street" onChange={handleChange} />
+              <FormLabel htmlFor="streetName">Street</FormLabel>
+              <Input
+                id="streetName"
+                name="streetName"
+                onChange={handleChange}
+                defaultValue={formData.streetName}
+              />
             </Box>
           </Stack>
           <Stack flexDirection="row">
@@ -126,11 +167,17 @@ export default function PersonalForm() {
                 id="postalCode"
                 name="postalCode"
                 onChange={handleChange}
+                defaultValue={formData.postalCode}
               />
             </Box>
             <Box width="100%">
               <FormLabel htmlFor="city">City</FormLabel>
-              <Input id="city" name="city" onChange={handleChange} />
+              <Input
+                id="city"
+                name="city"
+                onChange={handleChange}
+                defaultValue={formData.city}
+              />
             </Box>
           </Stack>
           <Stack flexDirection="row">
@@ -140,6 +187,7 @@ export default function PersonalForm() {
                 id="drivingLicenses"
                 name="drivingLicenses"
                 onChange={handleChange}
+                defaultValue={formData.drivingLicenses}
               />
             </Box>
             <Box width="100%">
@@ -148,7 +196,7 @@ export default function PersonalForm() {
                 id="gender"
                 name="gender"
                 onChange={handleChange}
-                defaultValue="Female"
+                value={formData.gender}
               >
                 <option value="Female">Female</option>
                 <option value="Male">Male</option>
@@ -163,6 +211,7 @@ export default function PersonalForm() {
                 name="dateOfBirth"
                 type="date"
                 onChange={handleChange}
+                defaultValue={formData.dateOfBirth}
               />
             </Box>
             <Box width="100%">
@@ -171,6 +220,7 @@ export default function PersonalForm() {
                 id="placeOfBirth"
                 name="placeOfBirth"
                 onChange={handleChange}
+                defaultValue={formData.placeOfBirth}
               />
             </Box>
           </Stack>
@@ -181,6 +231,7 @@ export default function PersonalForm() {
                 id="nationality"
                 name="nationality"
                 onChange={handleChange}
+                defaultValue={formData.nationality}
               />
             </Box>
             <Box width="100%">
@@ -189,7 +240,7 @@ export default function PersonalForm() {
                 id="maritalStatus"
                 name="maritalStatus"
                 onChange={handleChange}
-                defaultValue="Single"
+                value={formData.maritalStatus}
               >
                 <option value="Single">Single</option>
                 <option value="Cohabitation">Cohabitation</option>
@@ -205,11 +256,21 @@ export default function PersonalForm() {
           <Stack flexDirection="row">
             <Box width="100%">
               <FormLabel htmlFor="linkedin">LinkedIn</FormLabel>
-              <Input id="linkedin" name="linkedin" onChange={handleChange} />
+              <Input
+                id="linkedin"
+                name="linkedin"
+                onChange={handleChange}
+                defaultValue={formData.linkedin}
+              />
             </Box>
             <Box width="100%">
               <FormLabel htmlFor="website">Personal website</FormLabel>
-              <Input id="website" name="website" onChange={handleChange} />
+              <Input
+                id="website"
+                name="website"
+                onChange={handleChange}
+                defaultValue={formData.website}
+              />
             </Box>
           </Stack>
         </Stack>

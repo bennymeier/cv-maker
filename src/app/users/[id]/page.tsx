@@ -1,5 +1,5 @@
+import PersonalForm from '@/components/PersonalForm';
 import { UserDocument } from '@/models/User';
-import { Box } from '@chakra-ui/react';
 
 type Props = {
   params: {
@@ -26,7 +26,7 @@ export default async function Page({ params }: Props) {
   return (
     <>
       User {params.id}
-      <pre>{JSON.stringify(data)}</pre>
+      <PersonalForm initialData={data.data} method="PUT" />
     </>
   );
 }
