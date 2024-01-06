@@ -20,7 +20,7 @@ interface IMenuEntries {
 
 const MENU_ENTRIES: IMenuEntries[] = [
   { name: 'Home', href: '/' },
-  { name: 'Created CVs', href: '/cvs' },
+  { name: 'Dashboard', href: '/dashboard' },
 ];
 
 const Logo = () => {
