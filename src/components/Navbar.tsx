@@ -21,6 +21,7 @@ interface IMenuEntries {
 const MENU_ENTRIES: IMenuEntries[] = [
   { name: 'Home', href: '/' },
   { name: 'Dashboard', href: '/dashboard' },
+  { name: 'Users', href: '/users' },
 ];
 
 const Logo = () => {

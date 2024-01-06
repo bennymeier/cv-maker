@@ -1,3 +1,4 @@
+'use client';
 import { UserDocument } from '@/models/User';
 import {
   Table,
@@ -8,6 +9,7 @@ import {
   TableContainer,
   Image,
 } from '@chakra-ui/react';
+import { Link } from '@chakra-ui/next-js';
 
 type Props = {
   users: UserDocument[];
@@ -19,6 +21,7 @@ export default function UserTable({ users }: Props) {
         <Thead>
           <Tr>
             <Th>Avatar</Th>
+            <Th>ID</Th>
             <Th>E-Mail</Th>
             <Th>Firstname</Th>
             <Th>Lastname</Th>
@@ -66,6 +69,11 @@ export default function UserTable({ users }: Props) {
                     alt={`Profile Photo of ${firstName} ${lastName}`}
                     src={avatar.image}
                   />
+                </Th>
+                <Th>
+                  <Link color="cornflowerblue" href={`/users/${_id}`}>
+                    {_id}
+                  </Link>
                 </Th>
                 <Th>{email}</Th>
                 <Th>{firstName}</Th>

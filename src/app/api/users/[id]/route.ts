@@ -1,10 +1,9 @@
 import User from '@/models/User';
-import dbConnect from '../../../lib/dbConnect';
+import dbConnect from '../../../../lib/dbConnect';
 import { NextResponse } from 'next/server';
 
-export async function GET(req: Request) {
-  const { searchParams } = new URL(req.url);
-  const id = searchParams.get('id');
+export async function GET(req: Request, { params }: any) {
+  const id = params.id;
   await dbConnect();
 
   try {

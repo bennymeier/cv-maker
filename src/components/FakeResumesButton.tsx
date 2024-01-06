@@ -1,17 +1,17 @@
 'use client';
-import generateFakeUsers from '@/utils/generateFakeUsers';
+import generateFakeResumes from '@/utils/generateFakeResumes';
 import { Button } from '@chakra-ui/react';
 type Props = {
   quantity?: number;
 };
 export default function FakeUsersButton({ quantity = 10 }: Props) {
   const handleClick = () => {
-    const users = generateFakeUsers(quantity);
-    users.forEach((user) => {
+    const resumes = generateFakeResumes(quantity);
+    resumes.forEach((resume) => {
       try {
-        fetch('http://localhost:3000/api/users', {
+        fetch('http://localhost:3000/api/resumes', {
           method: 'POST',
-          body: JSON.stringify(user),
+          body: JSON.stringify(resume),
         });
       } catch (err: any) {
         console.error(err.message);
@@ -20,7 +20,7 @@ export default function FakeUsersButton({ quantity = 10 }: Props) {
   };
   return (
     <Button onClick={handleClick} size="xs">
-      Fake Users
+      Fake Resumes
     </Button>
   );
 }
