@@ -72,7 +72,6 @@ export default function PersonalForm() {
       ...prevData,
       [name]: value,
     }));
-    console.log('Name: ', name, ' Value: ', value);
   };
 
   return (

@@ -37,9 +37,8 @@ export async function PUT(req: Request) {
     return NextResponse.json({ success: false }, { status: 400 });
   }
 }
-export async function DELETE(req: Request) {
-  const { searchParams } = new URL(req.url);
-  const id = searchParams.get('id');
+export async function DELETE(req: Request, { params }: any) {
+  const id = params.id;
   await dbConnect();
 
   try {

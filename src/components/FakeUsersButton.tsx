@@ -1,6 +1,7 @@
 'use client';
 import generateFakeUsers from '@/utils/generateFakeUsers';
 import { Button } from '@chakra-ui/react';
+import { IconUserPlus } from '@tabler/icons-react';
 type Props = {
   quantity?: number;
 };
@@ -19,8 +20,8 @@ export default function FakeUsersButton({ quantity = 10 }: Props) {
     });
   };
   return (
-    <Button onClick={handleClick} size="xs">
-      Fake Users
+    <Button leftIcon={<IconUserPlus />} onClick={handleClick} paddingX="8">
+      Generate Users
     </Button>
   );
 }

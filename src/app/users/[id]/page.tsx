@@ -23,7 +23,6 @@ const getUserById = async (id: string) => {
 export default async function Page({ params }: Props) {
   const { id } = params;
   const data = await getUserById(id);
-  console.log(data);
   return (
     <>
       User {params.id}

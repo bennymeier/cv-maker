@@ -22,11 +22,7 @@ export default function generateFakeUsers(quantity = 10) {
       placeOfBirth: faker.location.city(),
       maritalStatus: 'Single',
       drivingLicenses: 'A, B',
-      avatar: {
-        image: faker.image.dataUri({ type: 'svg-base64' }),
-        filetype: faker.system.fileType(),
-        filesize: faker.string.numeric(4),
-      },
+      avatar: faker.image.dataUri({ type: 'svg-base64' }),
     };
   });
 

@@ -1,11 +1,5 @@
 import mongoose, { Document as MongoDBDocument, Schema } from 'mongoose';
 
-interface Avatar {
-  image: string;
-  filesize: number;
-  filetype: string;
-}
-
 export interface UserDocument extends MongoDBDocument {
   email: string;
   lastName: string;
@@ -26,7 +20,7 @@ export interface UserDocument extends MongoDBDocument {
   placeOfBirth: string;
   maritalStatus: string;
   drivingLicenses: string;
-  avatar: Avatar;
+  avatar: string;
 }
 
 const userSchema = new Schema<UserDocument>({
@@ -49,11 +43,7 @@ const userSchema = new Schema<UserDocument>({
   placeOfBirth: { type: String },
   maritalStatus: { type: String },
   drivingLicenses: { type: String },
-  avatar: {
-    image: { type: String },
-    filesize: { type: Number },
-    filetype: { type: String },
-  },
+  avatar: { type: String },
 });
 
 userSchema.set('timestamps', true);
